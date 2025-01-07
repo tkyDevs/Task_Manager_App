@@ -29,8 +29,8 @@ Welcome to the Task Manager App! This is a simple web application for managing t
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/tkyDevs/task-manager-app.git
-cd task-manager-app
+git clone https://github.com/tkyDevs/Task_Manager_App.git
+cd Task_Manager_App
 ```
 
 ### 2. Install Dependencies
