@@ -11,18 +11,51 @@ connectMongo().catch(err => console.log(err));
 // ------------------------------------- Server Setup
 const express = require('express');
 const app = express();
-app.use(express.static('./public'));
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
 const path = require('path');
 
-app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, './index.html'));
-})
+async function fetchTasks(req, res, next) {
+    try {
+      // Fetch tasks from the database
+      const tasks = await Task.find();  // This will be an array of task
+      req.tasks = tasks;  // Attach tasks to the request object
+      next();  // Proceed to the next middleware or route handler
+    } catch (err) {
+      console.error('Error fetching tasks:', err);
+      res.status(500).send('Error fetching tasks');
+    }
+  }
 
+// --------- HOMEPAGE
+app.get('/', fetchTasks, (req, res) => {
+    const taskList = req.tasks.map(item => ({
+        title: item.title,
+        description: item.description
+    }))
+    res.render('pages/index', {
+        taskList: taskList
+    });
+});
+
+app.use(express.static('./views/pages'));
+
+// --------- ADD TASK
 app.get('/addTask', (req, res) => {
-    res.sendFile(path.resolve(__dirname, './public/addTask.html'));
+    res.sendFile(path.resolve(__dirname, './views/pages/addTask.html'));
 })
-app.get('/addTask', (req, res) => {
-    res.send('testing');
+app.post('/addTask', (req, res) => {
+    const { title, description } = req.body;
+    addTask(title, description);
+    res.redirect('/');  // Redirect back to the homepage after submission
+});
+
+// --------- DELETE TASK
+app.post('/deleteTask/:taskId', (req, res) => {
+    const taskId = req.params.taskId;
+    console.log(taskId);
+    deleteTask(taskId);
+    res.redirect('/');
 })
 
 app.get('*', (req, res) => {

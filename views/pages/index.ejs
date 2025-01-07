@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <h1>Task Manager App</h1>
+    <!--
+      <input type="text" name="search" id="search" placeholder="Search Task">
+    -->
+    <div class="board">
+      <div class="controls">
+        <form action="/addTask" method="get">
+          <button id="btnAddTask" type="submit">Add Task</button>
+        </form>
+        <form action="/search" method="get">
+          <input type="text" name="search" id="search" placeholder="Search Task">
+        </form>
+      </div>
+
+      <div id="table">
+        <table>
+          <tr>
+            <th>Title</th>
+            <th>Actions</th>
+          </tr>
+
+          <% if (taskList.length > 0) { %>
+            <% for (let i = 0; i < taskList.length; i++) { %>
+              <tr>
+                <td><%= taskList[i].title %></td>
+                <td>
+                  <button title="View"><ion-icon name="eye-outline"></ion-icon></button>
+                  <button title="Edit"><ion-icon name="create-outline"></ion-icon></button>
+                  <form action="/deleteTask/<%= taskList[i].title %>" method="POST" style="display:inline;">
+                    <button type="submit" title="Delete" id="btnDel">
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            <% } %>
+          <% } else { %>
+            <tr>
+              <td colspan="2">No tasks available.</td>
+            </tr>
+          <% } %>
+          </table>
+      </div>
+    </div>
+  </main>
+</body>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</html>
