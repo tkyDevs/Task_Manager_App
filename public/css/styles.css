@@ -109,7 +109,7 @@ td button {
     padding: 0.2rem 0.6rem 0 0.6rem;
 }
 
-td button:nth-child(1) {
+#btnView {
     background-color: var(--secondary-color);
 }
 
@@ -121,7 +121,7 @@ td button:nth-child(2) {
     background-color: var(--danger-color);
 }
 
-td button:nth-child(1):hover {
+#btnView:hover {
     background-color: var(--hover-secondary);
 }
 

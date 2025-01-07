@@ -20,7 +20,7 @@ async function fetchTasks(req, res, next) {
       // Fetch tasks from the database
       const tasks = await Task.find();  // This will be an array of task
       req.tasks = tasks;  // Attach tasks to the request object
-      next();  // Proceed to the next middleware or route handler
+      next();
     } catch (err) {
       console.error('Error fetching tasks:', err);
       res.status(500).send('Error fetching tasks');
@@ -38,25 +38,32 @@ app.get('/', fetchTasks, (req, res) => {
     });
 });
 
-app.use(express.static('./views/pages'));
+
 
 // --------- ADD TASK
 app.get('/addTask', (req, res) => {
-    res.sendFile(path.resolve(__dirname, './views/pages/addTask.html'));
+    res.sendFile(path.resolve(__dirname, './public/addTask.html'));
 })
 app.post('/addTask', (req, res) => {
     const { title, description } = req.body;
     addTask(title, description);
-    res.redirect('/');  // Redirect back to the homepage after submission
+    res.redirect('/');
 });
 
 // --------- DELETE TASK
 app.post('/deleteTask/:taskId', (req, res) => {
     const taskId = req.params.taskId;
-    console.log(taskId);
     deleteTask(taskId);
     res.redirect('/');
 })
+
+// --------- VIEW TASK
+app.get('/viewTask/:taskId', async (req, res) => {
+    const taskId = req.params.taskId;
+    const taskObj = await Task.findOne({title: taskId});
+    res.render('pages/viewTask', { task: taskObj });
+})
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('*', (req, res) => {
     res.status(404).send('Ops! Looks like you found my invisible border...');

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task Manager</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <main>
@@ -34,7 +34,9 @@
               <tr>
                 <td><%= taskList[i].title %></td>
                 <td>
-                  <button title="View"><ion-icon name="eye-outline"></ion-icon></button>
+                  <form action="/viewTask/<%= taskList[i].title %>" method="GET" style="display:inline;">
+                    <button title="View" id="btnView"><ion-icon name="eye-outline"></ion-icon></button>
+                  </form>
                   <button title="Edit"><ion-icon name="create-outline"></ion-icon></button>
                   <form action="/deleteTask/<%= taskList[i].title %>" method="POST" style="display:inline;">
                     <button type="submit" title="Delete" id="btnDel">
