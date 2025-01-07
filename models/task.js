@@ -39,10 +39,11 @@ async function findTask(title) {
 }
 
 async function updateTask(title, updates) {
-    const id = await findTask(title);
+    console.log(title);
+    const id = await Task.findOne({title: title});
     if (id) {
         const task = await Task.findByIdAndUpdate(id, updates, { new: true });
-        console.log("Updated task");
+        console.log("Updated task", task);
     } else {
         console.log(`Task with the title "${title}" not found!`);
     }

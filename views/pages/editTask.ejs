@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Task</title>
+  <link rel="stylesheet" href="/css/addTaskStyles.css">
+</head>
+<body>
+  <main>
+    <h1>Edit Task Page</h1>
+
+    <div class="board">
+        <form method="post" action="/editTask/:<%= task.title %>">
+            <input type="text" style="display: none;" name="oldTitle" value="<%= task.title %>">
+            <label for="title">Task title:</label>
+            <input type="text" name="title" id="title" placeholder="<%= task.title %>">
+            <br>
+            <label for="title">Task description:</label>
+            <input maxlength="80" type="text" name="description" id="description" placeholder="<%= task.description %>">
+            <br>
+            <button type="submit">Submit Changes</button>
+        </form>
+    </div>
+  </main>
+</body>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</html>

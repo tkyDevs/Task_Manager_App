@@ -34,15 +34,19 @@
               <tr>
                 <td><%= taskList[i].title %></td>
                 <td>
-                  <form action="/viewTask/<%= taskList[i].title %>" method="GET" style="display:inline;">
-                    <button title="View" id="btnView"><ion-icon name="eye-outline"></ion-icon></button>
-                  </form>
-                  <button title="Edit"><ion-icon name="create-outline"></ion-icon></button>
-                  <form action="/deleteTask/<%= taskList[i].title %>" method="POST" style="display:inline;">
-                    <button type="submit" title="Delete" id="btnDel">
-                      <ion-icon name="trash-outline"></ion-icon>
-                    </button>
-                  </form>
+                    <form action="/viewTask/<%= taskList[i].title %>" method="GET" style="display:inline;">
+                      <button title="View" id="btnView"><ion-icon name="eye-outline"></ion-icon></button>
+                    </form>
+                    
+                    <form action="/editTask/<%= taskList[i].title %>" method="GET" style="display:inline;">
+                      <button title="Edit" id="btnEdit"><ion-icon name="create-outline"></ion-icon></button>                  </form>
+                    </form>
+                    
+                    <form action="/deleteTask/<%= taskList[i].title %>" method="POST" style="display:inline;">
+                      <button type="submit" title="Delete" id="btnDel">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </button>
+                    </form>
                 </td>
               </tr>
             <% } %>

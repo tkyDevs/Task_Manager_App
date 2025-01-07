@@ -63,6 +63,19 @@ app.get('/viewTask/:taskId', async (req, res) => {
     const taskObj = await Task.findOne({title: taskId});
     res.render('pages/viewTask', { task: taskObj });
 })
+
+// --------- EDIT TASK
+app.get('/editTask/:taskId', async (req, res) => {
+    const taskId = req.params.taskId;
+    const taskObj = await Task.findOne({title: taskId});
+    res.render('pages/editTask', { task: taskObj });
+})
+app.post('/editTask/:taskId', async (req, res) => {
+    const {title, description, oldTitle} = req.body;
+    updateTask(oldTitle, {title: title, description: description});
+    res.redirect('/');
+})
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('*', (req, res) => {
